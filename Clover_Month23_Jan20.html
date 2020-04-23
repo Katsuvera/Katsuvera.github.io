@@ -1,0 +1,760 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>CLOVER PriConne - clan-discussion</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+
+    <style>
+        /* General */
+
+@font-face {
+    font-family: Whitney;
+    src: url(https://discordapp.com/assets/6c6374bad0b0b6d204d8d6dc4a18d820.woff);
+    font-weight: 300;
+}
+
+@font-face {
+    font-family: Whitney;
+    src: url(https://discordapp.com/assets/e8acd7d9bf6207f99350ca9f9e23b168.woff);
+    font-weight: 400;
+}
+
+@font-face {
+    font-family: Whitney;
+    src: url(https://discordapp.com/assets/3bdef1251a424500c1b3a78dea9b7e57.woff);
+    font-weight: 500;
+}
+
+@font-face {
+    font-family: Whitney;
+    src: url(https://discordapp.com/assets/be0060dafb7a0e31d2a1ca17c0708636.woff);
+    font-weight: 600;
+}
+
+@font-face {
+    font-family: Whitney;
+    src: url(https://discordapp.com/assets/8e12fb4f14d9c4592eb8ec9f22337b04.woff);
+    font-weight: 700;
+}
+
+body {
+    font-family: "Whitney", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 17px;
+}
+
+a {
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+img {
+    object-fit: contain;
+}
+
+.markdown {
+    white-space: pre-wrap;
+    line-height: 1.3;
+    overflow-wrap: break-word;
+}
+
+.spoiler {
+    border-radius: 3px;
+}
+
+.quote {
+    margin: 0.5em 0;
+    padding-left: 0.6em;
+    border-left: 4px solid;
+    border-radius: 3px;
+}
+
+.pre {
+    font-family: "Consolas", "Courier New", Courier, monospace;
+}
+
+.pre--multiline {
+    margin-top: 0.25em;
+    padding: 0.5em;
+    border: 2px solid;
+    border-radius: 5px;
+}
+
+.pre--inline {
+    padding: 2px;
+    border-radius: 3px;
+    font-size: 0.85em;
+}
+
+.mention {
+    border-radius: 3px;
+    padding: 0 2px;
+    color: #7289da;
+    background: rgba(114, 137, 218, .1);
+    font-weight: 500;
+}
+
+.emoji {
+    width: 1.25em;
+    height: 1.25em;
+    margin: 0 0.06em;
+    vertical-align: -0.4em;
+}
+
+.emoji--small {
+    width: 1em;
+    height: 1em;
+}
+
+.emoji--large {
+    width: 2.8em;
+    height: 2.8em;
+}
+
+/* Preamble */
+
+.preamble {
+    display: grid;
+    margin: 0 0.3em 0.6em 0.3em;
+    max-width: 100%;
+    grid-template-columns: auto 1fr;
+}
+
+.preamble__guild-icon-container {
+    grid-column: 1;
+}
+
+.preamble__guild-icon {
+    max-width: 88px;
+    max-height: 88px;
+}
+
+.preamble__entries-container {
+    grid-column: 2;
+    margin-left: 0.6em;
+}
+
+.preamble__entry {
+    font-size: 1.4em;
+}
+
+.preamble__entry--small {
+    font-size: 1em;
+}
+
+/* Chatlog */
+
+.chatlog {
+    max-width: 100%;
+}
+
+.chatlog__message-group {
+    display: grid;
+    margin: 0 0.6em;
+    padding: 0.9em 0;
+    border-top: 1px solid;
+    grid-template-columns: auto 1fr;
+}
+
+.chatlog__author-avatar-container {
+    grid-column: 1;
+    width: 40px;
+    height: 40px;
+}
+
+.chatlog__author-avatar {
+    border-radius: 50%;
+    height: 40px;
+    width: 40px;
+}
+
+.chatlog__messages {
+    grid-column: 2;
+    margin-left: 1.2em;
+    min-width: 50%;
+}
+
+.chatlog__author-name {
+    font-weight: 500;
+}
+
+.chatlog__timestamp {
+    margin-left: 0.3em;
+    font-size: 0.75em;
+}
+
+.chatlog__message {
+    padding: 0.1em 0.3em;
+    margin: 0 -0.3em;
+    background-color: transparent;
+    transition: background-color 1s ease;
+}
+
+.chatlog__content {
+    font-size: 0.95em;
+    word-wrap: break-word;
+}
+
+.chatlog__edited-timestamp {
+    margin-left: 0.15em;
+    font-size: 0.8em;
+}
+
+.chatlog__attachment-thumbnail {
+    margin-top: 0.3em;
+    max-width: 50%;
+    max-height: 500px;
+    border-radius: 3px;
+}
+
+.chatlog__embed {
+    display: flex;
+    margin-top: 0.3em;
+    max-width: 520px;
+}
+
+.chatlog__embed-color-pill {
+    flex-shrink: 0;
+    width: 0.25em;
+    border-top-left-radius: 3px;
+    border-bottom-left-radius: 3px;
+}
+
+.chatlog__embed-content-container {
+    display: flex;
+    flex-direction: column;
+    padding: 0.5em 0.6em;
+    border: 1px solid;
+    border-top-right-radius: 3px;
+    border-bottom-right-radius: 3px;
+}
+
+.chatlog__embed-content {
+    display: flex;
+    width: 100%;
+}
+
+.chatlog__embed-text {
+    flex: 1;
+}
+
+.chatlog__embed-author {
+    display: flex;
+    margin-bottom: 0.3em;
+    align-items: center;
+}
+
+.chatlog__embed-author-icon {
+    margin-right: 0.5em;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+}
+
+.chatlog__embed-author-name {
+    font-size: 0.875em;
+    font-weight: 600;
+}
+
+.chatlog__embed-title {
+    margin-bottom: 0.2em;
+    font-size: 0.875em;
+    font-weight: 600;
+}
+
+.chatlog__embed-description {
+    font-weight: 500;
+    font-size: 0.85em;
+}
+
+.chatlog__embed-fields {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.chatlog__embed-field {
+    flex: 0;
+    min-width: 100%;
+    max-width: 506px;
+    padding-top: 0.6em;
+    font-size: 0.875em;
+}
+
+.chatlog__embed-field--inline {
+    flex: 1;
+    flex-basis: auto;
+    min-width: 150px;
+}
+
+.chatlog__embed-field-name {
+    margin-bottom: 0.2em;
+    font-weight: 600;
+}
+
+.chatlog__embed-field-value {
+    font-weight: 500;
+}
+
+.chatlog__embed-thumbnail {
+    flex: 0;
+    margin-left: 1.2em;
+    max-width: 80px;
+    max-height: 80px;
+    border-radius: 3px;
+}
+
+.chatlog__embed-image-container {
+    margin-top: 0.6em;
+}
+
+.chatlog__embed-image {
+    max-width: 500px;
+    max-height: 400px;
+    border-radius: 3px;
+}
+
+.chatlog__embed-footer {
+    margin-top: 0.6em;
+}
+
+.chatlog__embed-footer-icon {
+    margin-right: 0.2em;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    vertical-align: middle;
+}
+
+.chatlog__embed-footer-text {
+    font-size: 0.75em;
+    font-weight: 500;
+}
+
+.chatlog__reactions {
+    display: flex;
+}
+
+.chatlog__reaction {
+    display: flex;
+    align-items: center;
+    margin: 0.35em 0.1em 0.1em 0.1em;
+    padding: 0.2em 0.35em;
+    border-radius: 3px;
+}
+
+.chatlog__reaction-count {
+    min-width: 9px;
+    margin-left: 0.35em;
+    font-size: 0.875em;
+}
+
+.chatlog__bot-tag {
+    position: relative;
+    top: -.2em;
+    margin-left: 0.3em;
+    padding: 0.05em 0.3em;
+    border-radius: 3px;
+    vertical-align: middle;
+    line-height: 1.3;
+    background: #7289da;
+    color: #ffffff;
+    font-size: 0.625em;
+    font-weight: 500;
+}
+
+/* Postamble */
+
+.postamble {
+    margin: 1.4em 0.3em 0.6em 0.3em;
+    padding: 1em;
+    border-top: 1px solid;
+}
+    </style>
+    <style>
+        /* General */
+
+body {
+    background-color: #36393e;
+    color: #dcddde;
+}
+
+a {
+    color: #0096cf;
+}
+
+.spoiler {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.quote {
+    border-color: #4f545c;
+}
+
+.pre {
+    background-color: #2f3136 !important;
+}
+
+.pre--multiline {
+    border-color: #282b30 !important;
+    color: #b9bbbe !important;
+}
+
+/* === Preamble === */
+
+.preamble__entry {
+    color: #ffffff;
+}
+
+/* Chatlog */
+
+.chatlog__message-group {
+    border-color: rgba(255, 255, 255, 0.1);
+}
+
+.chatlog__author-name {
+    color: #ffffff;
+}
+
+.chatlog__timestamp {
+    color: rgba(255, 255, 255, 0.2);
+}
+
+.chatlog__message--highlighted {
+    background-color: rgba(114, 137, 218, 0.2) !important;
+}
+
+.chatlog__message--pinned {
+    background-color: rgba(249, 168, 37, 0.05);
+}
+
+.chatlog__edited-timestamp {
+    color: rgba(255, 255, 255, 0.2);
+}
+
+.chatlog__embed-color-pill--default {
+    background-color: rgba(79, 84, 92, 1);
+}
+
+.chatlog__embed-content-container {
+    background-color: rgba(46, 48, 54, 0.3);
+    border-color: rgba(46, 48, 54, 0.6);
+}
+
+.chatlog__embed-author-name {
+    color: #ffffff;
+}
+
+.chatlog__embed-author-name-link {
+    color: #ffffff;
+}
+
+.chatlog__embed-title {
+    color: #ffffff;
+}
+
+.chatlog__embed-description {
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.chatlog__embed-field-name {
+    color: #ffffff;
+}
+
+.chatlog__embed-field-value {
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.chatlog__embed-footer {
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.chatlog__reaction {
+    background-color: rgba(255, 255, 255, 0.05);
+}
+
+.chatlog__reaction-count {
+    color: rgba(255, 255, 255, 0.3);
+}
+
+/* Postamble */
+
+.postamble {
+    border-color: rgba(255, 255, 255, 0.1);
+}
+
+.postamble__entry {
+    color: #ffffff;
+}
+    </style>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/styles/solarized-dark.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/highlight.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            document.querySelectorAll('.pre--multiline').forEach(block => hljs.highlightBlock(block));
+        });
+    </script>
+
+    <script>
+        function scrollToMessage(event, id) {
+            var element = document.getElementById('message-' + id);
+
+            if (element) {
+                event.preventDefault();
+
+                element.classList.add('chatlog__message--highlighted');
+
+                window.scrollTo({
+                    top: element.getBoundingClientRect().top - document.body.getBoundingClientRect().top - (window.innerHeight / 2),
+                    behavior: 'smooth'
+                });
+
+                window.setTimeout(function() {
+                    element.classList.remove('chatlog__message--highlighted');
+                }, 2000);
+            }
+        }
+    </script>
+</head>
+<body>
+
+<div class="preamble">
+    <div class="preamble__guild-icon-container">
+        <img class="preamble__guild-icon" src="https://cdn.discordapp.com/icons/423109109395750913/a_9a1d5e142cdf6f3f21e3c57364bd4472.png" alt="Guild icon" />
+    </div>
+    <div class="preamble__entries-container">
+        <div class="preamble__entry">CLOVER PriConne</div>
+        <div class="preamble__entry">clan-discussion</div>
+
+            <div class="preamble__entry preamble__entry--small">Discussions pertaining to the Clan as a whole will be held here.</div>
+    </div>
+</div>
+
+</div><div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/118729469857890304/62e0b27e51533b5a1008e9840350d23d.png" alt="Avatar" />
+    </div>
+    <div class="chatlog__messages">
+    <span class="chatlog__author-name" title="Katsu#2075" data-user-id="118729469857890304" style="color: #9B59B6">団長様</span>
+
+
+        <span class="chatlog__timestamp">21-Apr-20 10:06 PM</span>
+
+            <div class="chatlog__message " data-message-id="702339479616356442" id="message-702339479616356442">
+                <div class="chatlog__content">
+                    <span class="markdown">As for January</span>
+
+                </div>
+
+                <div class="chatlog__attachment">
+                    <a href="https://cdn.discordapp.com/attachments/448237514684104704/702339945678897212/unknown.png">
+                        
+                            <img class="chatlog__attachment-thumbnail" src="https://cdn.discordapp.com/attachments/448237514684104704/702339945678897212/unknown.png" alt="Attachment" />
+                    </a>
+                </div>
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="702341320450113656" id="message-702341320450113656">
+                <div class="chatlog__content">
+                    <span class="markdown">Actually I might just combine the rest all together. Assuming I&#39;m not blind again, the only members left are Murasaki, Nobody, TowaTowa, Sailor and the two JP guys.</span>
+
+                        <span class="chatlog__edited-timestamp" title="21-Apr-20 10:15 PM">(edited)</span>
+                </div>
+
+
+
+            </div>
+    </div>
+</div><div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/118729469857890304/62e0b27e51533b5a1008e9840350d23d.png" alt="Avatar" />
+    </div>
+    <div class="chatlog__messages">
+    <span class="chatlog__author-name" title="Katsu#2075" data-user-id="118729469857890304" style="color: #9B59B6">団長様</span>
+
+
+        <span class="chatlog__timestamp">21-Apr-20 10:48 PM</span>
+
+            <div class="chatlog__message " data-message-id="702350039237918720" id="message-702350039237918720">
+                <div class="chatlog__content">
+                    <span class="markdown">&quot;Mura is a decent guy, he does a lot for Symphony&quot; - Megu
+I agree. I give him a perfect 5/7.
+
+I&#39;ll be honest, I judged Nobody by his name and was very skeptical when he joined. Don&#39;t ask, I don&#39;t know why. Anyway, I&#39;m glad that was unfounded and he turned out to be a great member. I don&#39;t recall any issues with his performance and he seemed like a cool guy. 7.5/10, probably could&#39;a been higher if, you know, we&#39;d had more than two months of CB together and I got to know him better before the clan <img class="emoji " alt="💥" title="💥" src="https://twemoji.maxcdn.com/2/72x72/1f4a5.png" /> 
+
+Towa gets an 8.5/10 for being a solid member and a good addition to the clan - akin to Nobody but with an extra point for A.) contributing multiple posts in the timeline channels and B.) piloting a second account to fill a spot in the clan. Very grateful for all your hard work, thank you. 
+
+Sailor gets a <img class="emoji " alt="⛵" title="⛵" src="https://twemoji.maxcdn.com/2/72x72/26f5.png" /> / 10. I think that, uh, we sorta discussed him enough when CB ended that I don&#39;t need to go over it again here, right? Actually, wait, Chie already rated the new guys from the last month (Sailor + the JP guys, see below), do I even need to do it again?! Oh also I forgot to thank Megu for the piloting she did for Sailor (and Dymond) so thanks for that. <img class="emoji " alt="clarise" title="clarise" src="https://cdn.discordapp.com/emojis/352451406671642625.png" /> 
+
+I swear I already rated mimori&#39;s picture of his balcony but I can&#39;t find it anymore. It was something like a 7/10, looked great but was a little too blurry. 
+
+Yuki I give a 7.5/10 because chie gave him an 8 but I am knocking off half a point because he didn&#39;t have an original name.</span>
+
+                </div>
+
+
+
+            </div>
+    </div>
+</div><div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/215264818125340673/2c7265b46bb4954a86d366deb8c097cd.png" alt="Avatar" />
+    </div>
+    <div class="chatlog__messages">
+    <span class="chatlog__author-name" title="megu#0268" data-user-id="215264818125340673" style="color: #2ECC71">Megu baka</span>
+
+
+        <span class="chatlog__timestamp">21-Apr-20 10:53 PM</span>
+
+            <div class="chatlog__message " data-message-id="702351317774893136" id="message-702351317774893136">
+                <div class="chatlog__content">
+                    <span class="markdown">Half of these aren&#39;t even your ratings anymore <img class="emoji " alt="kasumiPoint" title="kasumiPoint" src="https://cdn.discordapp.com/emojis/625199320647335946.png" /></span>
+
+                </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="702351828741914675" id="message-702351828741914675">
+                <div class="chatlog__content">
+                    <span class="markdown">but seriously good job on this it was fun <img class="emoji " alt="nekoHappy" title="nekoHappy" src="https://cdn.discordapp.com/emojis/625199320760844288.gif" /></span>
+
+                </div>
+
+
+
+            </div>
+    </div>
+</div><div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/118729469857890304/62e0b27e51533b5a1008e9840350d23d.png" alt="Avatar" />
+    </div>
+    <div class="chatlog__messages">
+    <span class="chatlog__author-name" title="Katsu#2075" data-user-id="118729469857890304" style="color: #9B59B6">団長様</span>
+
+
+        <span class="chatlog__timestamp">21-Apr-20 10:55 PM</span>
+
+            <div class="chatlog__message " data-message-id="702351850497638510" id="message-702351850497638510">
+                <div class="chatlog__content">
+                    <span class="markdown">What can I say, I&#39;ve been doing this for a week now and I&#39;m getting tired and lazy. <img class="emoji " alt="yuniWant" title="yuniWant" src="https://cdn.discordapp.com/emojis/625199320953782272.png" /></span>
+
+                </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="702352069658542111" id="message-702352069658542111">
+                <div class="chatlog__content">
+                    <span class="markdown">I&#39;ll probably try to flesh Mura&#39;s out a bit more when I combine these later.</span>
+
+                </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="702352176969941032" id="message-702352176969941032">
+                <div class="chatlog__content">
+                    <span class="markdown">Sailor and JP guy&#39;s though I feel content with Chie&#39;s ratings. <img class="emoji " alt="animePeek2" title="animePeek2" src="https://cdn.discordapp.com/emojis/427997921179598849.png" /></span>
+
+                </div>
+
+
+
+            </div>
+    </div>
+</div><div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/215264818125340673/2c7265b46bb4954a86d366deb8c097cd.png" alt="Avatar" />
+    </div>
+    <div class="chatlog__messages">
+    <span class="chatlog__author-name" title="megu#0268" data-user-id="215264818125340673" style="color: #2ECC71">Megu baka</span>
+
+
+        <span class="chatlog__timestamp">21-Apr-20 10:56 PM</span>
+
+            <div class="chatlog__message " data-message-id="702352213833678918" id="message-702352213833678918">
+                <div class="chatlog__content">
+                    <span class="markdown">That&#39;s very fair</span>
+
+                </div>
+
+
+
+            </div>
+    </div>
+</div><div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/118729469857890304/62e0b27e51533b5a1008e9840350d23d.png" alt="Avatar" />
+    </div>
+    <div class="chatlog__messages">
+    <span class="chatlog__author-name" title="Katsu#2075" data-user-id="118729469857890304" style="color: #9B59B6">団長様</span>
+
+
+        <span class="chatlog__timestamp">21-Apr-20 10:57 PM</span>
+
+            <div class="chatlog__message " data-message-id="702352253855727616" id="message-702352253855727616">
+                <div class="chatlog__content">
+                    <span class="markdown">and thanks, glad you had fun</span>
+
+                </div>
+
+
+
+            </div>
+    </div>
+</div><div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/470806436927242240/1f525c5ab59c08cf35760997238ecf6a.png" alt="Avatar" />
+    </div>
+    <div class="chatlog__messages">
+    <span class="chatlog__author-name" title="chie#5866" data-user-id="470806436927242240" style="color: #2ECC71">Not Chie</span>
+ 
+ 
+        <span class="chatlog__timestamp">31-Mar-20 02:12 AM</span>
+ 
+            <div class="chatlog__message " data-message-id="694428945059151905" id="message-694428945059151905">
+                <div class="chatlog__content">
+                    <span class="markdown">so first, mimori: he isn&#39;t that bad of a cb player tbh, however I don&#39;t think he works well in clover, that is, if we are keeping the same playstyle. his low damage isn&#39;t the issue here. communication-wise he is very hard to work with since he can go mia for like 7~8 hours. it is also apparent that his playtime is pretty bizzarre and makes thing very hard. iirc he also went afk right after I told him to hit a boss after seeing him say something, I remember it being 40 minutes (10 minutes I can understand... but 40?) so I don&#39;t feel like it is a language issue, that is either because he is a really busy irl which i believe he does, or it&#39;s just mimori. personally I would give him 4/10.
+- </span>
+ 
+                </div>
+ 
+ 
+ 
+            </div>
+            <div class="chatlog__message " data-message-id="694431527202848768" id="message-694431527202848768">
+                <div class="chatlog__content">
+                    <span class="markdown">and then yuki: much better than I expected. for a person with hardly any experience he can follow most of the things we gave him(maybe still has a little bit of trouble with very precise frame timings), do sync kill. when he shows up he is available and responds very quickly. with a little bit of help he knows what combos he needs to do and can do them when we ask him to. some of his hits aren&#39;t optimal but they are understandable. he also showed improvement using the same comps over the course of 3 days from what I can tell. 8/10
+- </span>
+ 
+                </div>
+ 
+
+ 
+            <div class="chatlog__message " data-message-id="694434148797907026" id="message-694434148797907026">
+                <div class="chatlog__content">
+                    <span class="markdown">lastly sailor: not very satisfied to be honestly. first 3 days are fine and understandable but last 3 or 2 days are not acceptable in my opinion. you should have plenty of time to organize your stuffs. now i don&#39;t know what happened to you in real life or what kind of shit you&#39;ve been through... but you can&#39;t come in a few hours before reset and not knowing what you should be doing during rush hours. especially when you are still new to these kinds of things and still need a lot of help(also, asking for these kinds of help during rush hours is probably the worst since either people are busy organizing or they are testing their own shits). only experienced oldfaggots can do that since they can come up with something in a matter of minutes.
+
+your lack of mana or characters may hinder your ability to use some of our best teams but I&#39;m 100% sure you can still make something work, despite this month&#39;s tier 4 being harder to plan than last month&#39;s. a lot of people have that roster issues, like OJ or staywill, but they can still make something work and overcome it. now yes they are more experienced but as a result you need to put in more efforts and time into planning. or do it early, at the beginning of the day, instead of &quot;before reset&quot;.
+
+yes you said you fail hard in cb. it&#39;s a good thing you recognize that. most people start their first cb failing hard. but that&#39;s only step one. how are you going to stop flopping? that is more important than anything.</span>
+ 
+                        <span class="chatlog__edited-timestamp" title="31-Mar-20 02:37 AM">(edited)</span>
+                </div>
+            </div>
+    </div>
+</div>
+</div>
+
+<div class="postamble">
+    <div class="postamble__entry">Exported the final three months</div>
+</div>
+
+</body>
+</html>

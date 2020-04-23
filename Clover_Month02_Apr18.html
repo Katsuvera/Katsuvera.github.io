@@ -1,0 +1,1029 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>CLOVER PriConne - clan-discussion</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+
+    <style>
+        /* General */
+
+@font-face {
+    font-family: Whitney;
+    src: url(https://discordapp.com/assets/6c6374bad0b0b6d204d8d6dc4a18d820.woff);
+    font-weight: 300;
+}
+
+@font-face {
+    font-family: Whitney;
+    src: url(https://discordapp.com/assets/e8acd7d9bf6207f99350ca9f9e23b168.woff);
+    font-weight: 400;
+}
+
+@font-face {
+    font-family: Whitney;
+    src: url(https://discordapp.com/assets/3bdef1251a424500c1b3a78dea9b7e57.woff);
+    font-weight: 500;
+}
+
+@font-face {
+    font-family: Whitney;
+    src: url(https://discordapp.com/assets/be0060dafb7a0e31d2a1ca17c0708636.woff);
+    font-weight: 600;
+}
+
+@font-face {
+    font-family: Whitney;
+    src: url(https://discordapp.com/assets/8e12fb4f14d9c4592eb8ec9f22337b04.woff);
+    font-weight: 700;
+}
+
+body {
+    font-family: "Whitney", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 17px;
+}
+
+a {
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+img {
+    object-fit: contain;
+}
+
+.markdown {
+    white-space: pre-wrap;
+    line-height: 1.3;
+    overflow-wrap: break-word;
+}
+
+.spoiler {
+    border-radius: 3px;
+}
+
+.quote {
+    margin: 0.5em 0;
+    padding-left: 0.6em;
+    border-left: 4px solid;
+    border-radius: 3px;
+}
+
+.pre {
+    font-family: "Consolas", "Courier New", Courier, monospace;
+}
+
+.pre--multiline {
+    margin-top: 0.25em;
+    padding: 0.5em;
+    border: 2px solid;
+    border-radius: 5px;
+}
+
+.pre--inline {
+    padding: 2px;
+    border-radius: 3px;
+    font-size: 0.85em;
+}
+
+.mention {
+    border-radius: 3px;
+    padding: 0 2px;
+    color: #7289da;
+    background: rgba(114, 137, 218, .1);
+    font-weight: 500;
+}
+
+.emoji {
+    width: 1.25em;
+    height: 1.25em;
+    margin: 0 0.06em;
+    vertical-align: -0.4em;
+}
+
+.emoji--small {
+    width: 1em;
+    height: 1em;
+}
+
+.emoji--large {
+    width: 2.8em;
+    height: 2.8em;
+}
+
+/* Preamble */
+
+.preamble {
+    display: grid;
+    margin: 0 0.3em 0.6em 0.3em;
+    max-width: 100%;
+    grid-template-columns: auto 1fr;
+}
+
+.preamble__guild-icon-container {
+    grid-column: 1;
+}
+
+.preamble__guild-icon {
+    max-width: 88px;
+    max-height: 88px;
+}
+
+.preamble__entries-container {
+    grid-column: 2;
+    margin-left: 0.6em;
+}
+
+.preamble__entry {
+    font-size: 1.4em;
+}
+
+.preamble__entry--small {
+    font-size: 1em;
+}
+
+/* Chatlog */
+
+.chatlog {
+    max-width: 100%;
+}
+
+.chatlog__message-group {
+    display: grid;
+    margin: 0 0.6em;
+    padding: 0.9em 0;
+    border-top: 1px solid;
+    grid-template-columns: auto 1fr;
+}
+
+.chatlog__author-avatar-container {
+    grid-column: 1;
+    width: 40px;
+    height: 40px;
+}
+
+.chatlog__author-avatar {
+    border-radius: 50%;
+    height: 40px;
+    width: 40px;
+}
+
+.chatlog__messages {
+    grid-column: 2;
+    margin-left: 1.2em;
+    min-width: 50%;
+}
+
+.chatlog__author-name {
+    font-weight: 500;
+}
+
+.chatlog__timestamp {
+    margin-left: 0.3em;
+    font-size: 0.75em;
+}
+
+.chatlog__message {
+    padding: 0.1em 0.3em;
+    margin: 0 -0.3em;
+    background-color: transparent;
+    transition: background-color 1s ease;
+}
+
+.chatlog__content {
+    font-size: 0.95em;
+    word-wrap: break-word;
+}
+
+.chatlog__edited-timestamp {
+    margin-left: 0.15em;
+    font-size: 0.8em;
+}
+
+.chatlog__attachment-thumbnail {
+    margin-top: 0.3em;
+    max-width: 50%;
+    max-height: 500px;
+    border-radius: 3px;
+}
+
+.chatlog__embed {
+    display: flex;
+    margin-top: 0.3em;
+    max-width: 520px;
+}
+
+.chatlog__embed-color-pill {
+    flex-shrink: 0;
+    width: 0.25em;
+    border-top-left-radius: 3px;
+    border-bottom-left-radius: 3px;
+}
+
+.chatlog__embed-content-container {
+    display: flex;
+    flex-direction: column;
+    padding: 0.5em 0.6em;
+    border: 1px solid;
+    border-top-right-radius: 3px;
+    border-bottom-right-radius: 3px;
+}
+
+.chatlog__embed-content {
+    display: flex;
+    width: 100%;
+}
+
+.chatlog__embed-text {
+    flex: 1;
+}
+
+.chatlog__embed-author {
+    display: flex;
+    margin-bottom: 0.3em;
+    align-items: center;
+}
+
+.chatlog__embed-author-icon {
+    margin-right: 0.5em;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+}
+
+.chatlog__embed-author-name {
+    font-size: 0.875em;
+    font-weight: 600;
+}
+
+.chatlog__embed-title {
+    margin-bottom: 0.2em;
+    font-size: 0.875em;
+    font-weight: 600;
+}
+
+.chatlog__embed-description {
+    font-weight: 500;
+    font-size: 0.85em;
+}
+
+.chatlog__embed-fields {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.chatlog__embed-field {
+    flex: 0;
+    min-width: 100%;
+    max-width: 506px;
+    padding-top: 0.6em;
+    font-size: 0.875em;
+}
+
+.chatlog__embed-field--inline {
+    flex: 1;
+    flex-basis: auto;
+    min-width: 150px;
+}
+
+.chatlog__embed-field-name {
+    margin-bottom: 0.2em;
+    font-weight: 600;
+}
+
+.chatlog__embed-field-value {
+    font-weight: 500;
+}
+
+.chatlog__embed-thumbnail {
+    flex: 0;
+    margin-left: 1.2em;
+    max-width: 80px;
+    max-height: 80px;
+    border-radius: 3px;
+}
+
+.chatlog__embed-image-container {
+    margin-top: 0.6em;
+}
+
+.chatlog__embed-image {
+    max-width: 500px;
+    max-height: 400px;
+    border-radius: 3px;
+}
+
+.chatlog__embed-footer {
+    margin-top: 0.6em;
+}
+
+.chatlog__embed-footer-icon {
+    margin-right: 0.2em;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    vertical-align: middle;
+}
+
+.chatlog__embed-footer-text {
+    font-size: 0.75em;
+    font-weight: 500;
+}
+
+.chatlog__reactions {
+    display: flex;
+}
+
+.chatlog__reaction {
+    display: flex;
+    align-items: center;
+    margin: 0.35em 0.1em 0.1em 0.1em;
+    padding: 0.2em 0.35em;
+    border-radius: 3px;
+}
+
+.chatlog__reaction-count {
+    min-width: 9px;
+    margin-left: 0.35em;
+    font-size: 0.875em;
+}
+
+.chatlog__bot-tag {
+    position: relative;
+    top: -.2em;
+    margin-left: 0.3em;
+    padding: 0.05em 0.3em;
+    border-radius: 3px;
+    vertical-align: middle;
+    line-height: 1.3;
+    background: #7289da;
+    color: #ffffff;
+    font-size: 0.625em;
+    font-weight: 500;
+}
+
+/* Postamble */
+
+.postamble {
+    margin: 1.4em 0.3em 0.6em 0.3em;
+    padding: 1em;
+    border-top: 1px solid;
+}
+    </style>
+    <style>
+        /* General */
+
+body {
+    background-color: #36393e;
+    color: #dcddde;
+}
+
+a {
+    color: #0096cf;
+}
+
+.spoiler {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.quote {
+    border-color: #4f545c;
+}
+
+.pre {
+    background-color: #2f3136 !important;
+}
+
+.pre--multiline {
+    border-color: #282b30 !important;
+    color: #b9bbbe !important;
+}
+
+/* === Preamble === */
+
+.preamble__entry {
+    color: #ffffff;
+}
+
+/* Chatlog */
+
+.chatlog__message-group {
+    border-color: rgba(255, 255, 255, 0.1);
+}
+
+.chatlog__author-name {
+    color: #ffffff;
+}
+
+.chatlog__timestamp {
+    color: rgba(255, 255, 255, 0.2);
+}
+
+.chatlog__message--highlighted {
+    background-color: rgba(114, 137, 218, 0.2) !important;
+}
+
+.chatlog__message--pinned {
+    background-color: rgba(249, 168, 37, 0.05);
+}
+
+.chatlog__edited-timestamp {
+    color: rgba(255, 255, 255, 0.2);
+}
+
+.chatlog__embed-color-pill--default {
+    background-color: rgba(79, 84, 92, 1);
+}
+
+.chatlog__embed-content-container {
+    background-color: rgba(46, 48, 54, 0.3);
+    border-color: rgba(46, 48, 54, 0.6);
+}
+
+.chatlog__embed-author-name {
+    color: #ffffff;
+}
+
+.chatlog__embed-author-name-link {
+    color: #ffffff;
+}
+
+.chatlog__embed-title {
+    color: #ffffff;
+}
+
+.chatlog__embed-description {
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.chatlog__embed-field-name {
+    color: #ffffff;
+}
+
+.chatlog__embed-field-value {
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.chatlog__embed-footer {
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.chatlog__reaction {
+    background-color: rgba(255, 255, 255, 0.05);
+}
+
+.chatlog__reaction-count {
+    color: rgba(255, 255, 255, 0.3);
+}
+
+/* Postamble */
+
+.postamble {
+    border-color: rgba(255, 255, 255, 0.1);
+}
+
+.postamble__entry {
+    color: #ffffff;
+}
+    </style>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/styles/solarized-dark.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/highlight.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            document.querySelectorAll('.pre--multiline').forEach(block => hljs.highlightBlock(block));
+        });
+    </script>
+
+    <script>
+        function scrollToMessage(event, id) {
+            var element = document.getElementById('message-' + id);
+
+            if (element) {
+                event.preventDefault();
+
+                element.classList.add('chatlog__message--highlighted');
+
+                window.scrollTo({
+                    top: element.getBoundingClientRect().top - document.body.getBoundingClientRect().top - (window.innerHeight / 2),
+                    behavior: 'smooth'
+                });
+
+                window.setTimeout(function() {
+                    element.classList.remove('chatlog__message--highlighted');
+                }, 2000);
+            }
+        }
+    </script>
+</head>
+<body>
+
+<div class="preamble">
+    <div class="preamble__guild-icon-container">
+        <img class="preamble__guild-icon" src="https://cdn.discordapp.com/icons/423109109395750913/a_9a1d5e142cdf6f3f21e3c57364bd4472.png" alt="Guild icon" />
+    </div>
+    <div class="preamble__entries-container">
+        <div class="preamble__entry">CLOVER PriConne</div>
+        <div class="preamble__entry">clan-discussion</div>
+
+            <div class="preamble__entry preamble__entry--small">Discussions pertaining to the Clan as a whole will be held here.</div>
+    </div>
+</div>
+
+</div><div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/118729469857890304/62e0b27e51533b5a1008e9840350d23d.png" alt="Avatar" />
+    </div>
+    <div class="chatlog__messages">
+    <span class="chatlog__author-name" title="Katsu#2075" data-user-id="118729469857890304" style="color: #9B59B6">団長様</span>
+
+
+        <span class="chatlog__timestamp">14-Apr-20 11:33 PM</span>
+
+            <div class="chatlog__message " data-message-id="699824667988590643" id="message-699824667988590643">
+                <div class="chatlog__content">
+                    <span class="markdown">moving on to the second month</span>
+
+                </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="699827746590687272" id="message-699827746590687272">
+                <div class="chatlog__content">
+                    <span class="markdown"></span>
+
+                </div>
+
+                <div class="chatlog__attachment">
+                    <a href="https://cdn.discordapp.com/attachments/448237514684104704/699827746368520272/unknown.png">
+                        
+                            <img class="chatlog__attachment-thumbnail" src="https://cdn.discordapp.com/attachments/448237514684104704/699827746368520272/unknown.png" alt="Attachment" />
+                    </a>
+                </div>
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="699827774092869756" id="message-699827774092869756">
+                <div class="chatlog__content">
+                    <span class="markdown">11 day CB LUL</span>
+
+                </div>
+
+
+
+            </div>
+    </div>
+</div><div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/179950276202070016/d5bc24f49c18aa0a868b9ffd493dd915.png" alt="Avatar" />
+    </div>
+    <div class="chatlog__messages">
+    <span class="chatlog__author-name" title="Kotori#9979" data-user-id="179950276202070016" style="color: #2ECC71">Kotori</span>
+
+
+        <span class="chatlog__timestamp">14-Apr-20 11:47 PM</span>
+
+            <div class="chatlog__message " data-message-id="699828288901873694" id="message-699828288901873694">
+                <div class="chatlog__content">
+                    <span class="markdown">lol these numbers are so low</span>
+
+                </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="699828335584215091" id="message-699828335584215091">
+                <div class="chatlog__content">
+                    <span class="markdown">one UB does that much damage now sometimes</span>
+
+                </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="699828410360528936" id="message-699828410360528936">
+                <div class="chatlog__content">
+                    <span class="markdown">those were good days <img class="emoji " alt="GWmythicalFeelsSadMan" title="GWmythicalFeelsSadMan" src="https://cdn.discordapp.com/emojis/374568771421208577.png" /></span>
+
+                </div>
+
+
+
+            </div>
+    </div>
+</div><div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/118729469857890304/62e0b27e51533b5a1008e9840350d23d.png" alt="Avatar" />
+    </div>
+    <div class="chatlog__messages">
+    <span class="chatlog__author-name" title="Katsu#2075" data-user-id="118729469857890304" style="color: #9B59B6">団長様</span>
+
+
+        <span class="chatlog__timestamp">14-Apr-20 11:48 PM</span>
+
+            <div class="chatlog__message " data-message-id="699828416312246315" id="message-699828416312246315">
+                <div class="chatlog__content">
+                    <span class="markdown">this is a mood</span>
+
+                </div>
+
+                <div class="chatlog__attachment">
+                    <a href="https://cdn.discordapp.com/attachments/448237514684104704/699828416278560818/unknown.png">
+                        
+                            <img class="chatlog__attachment-thumbnail" src="https://cdn.discordapp.com/attachments/448237514684104704/699828416278560818/unknown.png" alt="Attachment" />
+                    </a>
+                </div>
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="699828450017411085" id="message-699828450017411085">
+                <div class="chatlog__content">
+                    <span class="markdown">when there was no overflow</span>
+
+                </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="699828478568169542" id="message-699828478568169542">
+                <div class="chatlog__content">
+                    <span class="markdown">and that was literally just your attack lol</span>
+
+                </div>
+
+
+
+            </div>
+    </div>
+</div><div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/179950276202070016/d5bc24f49c18aa0a868b9ffd493dd915.png" alt="Avatar" />
+    </div>
+    <div class="chatlog__messages">
+    <span class="chatlog__author-name" title="Kotori#9979" data-user-id="179950276202070016" style="color: #2ECC71">Kotori</span>
+
+
+        <span class="chatlog__timestamp">14-Apr-20 11:48 PM</span>
+
+            <div class="chatlog__message " data-message-id="699828588731695105" id="message-699828588731695105">
+                <div class="chatlog__content">
+                    <span class="markdown">very sad</span>
+
+                </div>
+
+
+
+            </div>
+    </div>
+</div><div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/118729469857890304/62e0b27e51533b5a1008e9840350d23d.png" alt="Avatar" />
+    </div>
+    <div class="chatlog__messages">
+    <span class="chatlog__author-name" title="Katsu#2075" data-user-id="118729469857890304" style="color: #9B59B6">団長様</span>
+
+
+        <span class="chatlog__timestamp">14-Apr-20 11:50 PM</span>
+
+            <div class="chatlog__message " data-message-id="699828985487425547" id="message-699828985487425547">
+                <div class="chatlog__content">
+                    <span class="markdown">oh it looks like you joined this month</span>
+
+                </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="699828988763308084" id="message-699828988763308084">
+                <div class="chatlog__content">
+                    <span class="markdown"></span>
+
+                </div>
+
+                <div class="chatlog__attachment">
+                    <a href="https://cdn.discordapp.com/attachments/448237514684104704/699828988943794197/unknown.png">
+                        
+                            <img class="chatlog__attachment-thumbnail" src="https://cdn.discordapp.com/attachments/448237514684104704/699828988943794197/unknown.png" alt="Attachment" />
+                    </a>
+                </div>
+
+
+            </div>
+    </div>
+</div><div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/179950276202070016/d5bc24f49c18aa0a868b9ffd493dd915.png" alt="Avatar" />
+    </div>
+    <div class="chatlog__messages">
+    <span class="chatlog__author-name" title="Kotori#9979" data-user-id="179950276202070016" style="color: #2ECC71">Kotori</span>
+
+
+        <span class="chatlog__timestamp">14-Apr-20 11:51 PM</span>
+
+            <div class="chatlog__message " data-message-id="699829145386876939" id="message-699829145386876939">
+                <div class="chatlog__content">
+                    <span class="markdown">yeah</span>
+
+                </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="699829197639516240" id="message-699829197639516240">
+                <div class="chatlog__content">
+                    <span class="markdown">I was pretty weak</span>
+
+                </div>
+
+
+
+            </div>
+    </div>
+</div><div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/118729469857890304/62e0b27e51533b5a1008e9840350d23d.png" alt="Avatar" />
+    </div>
+    <div class="chatlog__messages">
+    <span class="chatlog__author-name" title="Katsu#2075" data-user-id="118729469857890304" style="color: #9B59B6">団長様</span>
+
+
+        <span class="chatlog__timestamp">14-Apr-20 11:58 PM</span>
+
+            <div class="chatlog__message " data-message-id="699831098842153051" id="message-699831098842153051">
+                <div class="chatlog__content">
+                    <span class="markdown">I guess new members that month (that I remember anything about) were Kotori, Atsui, Leo, Silence and M-san.</span>
+
+                        <span class="chatlog__edited-timestamp" title="14-Apr-20 11:59 PM">(edited)</span>
+                </div>
+
+
+
+            </div>
+    </div>
+</div><div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/118729469857890304/62e0b27e51533b5a1008e9840350d23d.png" alt="Avatar" />
+    </div>
+    <div class="chatlog__messages">
+    <span class="chatlog__author-name" title="Katsu#2075" data-user-id="118729469857890304" style="color: #9B59B6">団長様</span>
+
+
+        <span class="chatlog__timestamp">15-Apr-20 12:16 AM</span>
+
+            <div class="chatlog__message " data-message-id="699835610336329798" id="message-699835610336329798">
+                <div class="chatlog__content">
+                    <span class="markdown">Kotori gets a 9/10. I do recall him worrying about having a &#39;weak roster&#39; at the start and... well, looking at the results he was Rank 29 in april. :3 I&#39;m glad he didn&#39;t lose motivation though and his hard work helped him steadily improve. He went from 29 to 25 (may) to pulling his own weight at 18 in july. <img class="emoji " alt="daishouri" title="daishouri" src="https://cdn.discordapp.com/emojis/586322872780455955.png" /> And he&#39;s been a consistently well-performing member since then. I basically gave up on / stopped playing GBF when I started PriConne so I&#39;m impressed he was able to grind GBF while doing PriConne, too.</span>
+
+                </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="699836233399926835" id="message-699836233399926835">
+                <div class="chatlog__content">
+                    <span class="markdown">Atsui gets a 7.5/10. I actually forgot that she had the &#39;mod&#39; position as well. That&#39;s cuz... I don&#39;t remember her doing anything mod-related tbh. I don&#39;t know why she had the role... <img class="emoji " alt="😗" title="😗" src="https://twemoji.maxcdn.com/2/72x72/1f617.png" /> She was Rank #6 this first month she was in the clan though so she clearly knew what she was doing. I recall her being friends with Jin and being the brunt of some of his lecherousness but she was very nice.</span>
+
+                </div>
+
+
+
+            </div>
+    </div>
+</div><div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/118729469857890304/62e0b27e51533b5a1008e9840350d23d.png" alt="Avatar" />
+    </div>
+    <div class="chatlog__messages">
+    <span class="chatlog__author-name" title="Katsu#2075" data-user-id="118729469857890304" style="color: #9B59B6">団長様</span>
+
+
+        <span class="chatlog__timestamp">15-Apr-20 12:24 AM</span>
+
+            <div class="chatlog__message " data-message-id="699837411454091297" id="message-699837411454091297">
+                <div class="chatlog__content">
+                    <span class="markdown">Silence was the main spreadsheet guy for a while at the start. He did all the calculations for &quot;adjusted damage&quot; you can see in the spreadsheets from may (next month) and onward. I give him a 9/10, too, since he was a mod and did his fair share of work. But... is there anything interesting to say about him... hmmmm... man I feel bad but I don&#39;t remember much. We didn&#39;t really talk in DMs tbh so we weren&#39;t that &quot;close&quot;. The only thing I distinctly remember is when I pointed out the weird way he used one word and I didn&#39;t go about it very well and it turned into a bit of a confrontation. I don&#39;t think he liked me all that much after that. <img class="emoji " alt="FeelsBadMan" title="FeelsBadMan" src="https://cdn.discordapp.com/emojis/625199319334518795.png" /></span>
+
+                </div>
+
+
+
+            </div>
+    </div>
+</div><div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/179950276202070016/d5bc24f49c18aa0a868b9ffd493dd915.png" alt="Avatar" />
+    </div>
+    <div class="chatlog__messages">
+    <span class="chatlog__author-name" title="Kotori#9979" data-user-id="179950276202070016" style="color: #2ECC71">Kotori</span>
+
+
+        <span class="chatlog__timestamp">15-Apr-20 12:24 AM</span>
+
+            <div class="chatlog__message " data-message-id="699837601095483422" id="message-699837601095483422">
+                <div class="chatlog__content">
+                    <span class="markdown">I miss him</span>
+
+                </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="699837620464910336" id="message-699837620464910336">
+                <div class="chatlog__content">
+                    <span class="markdown">he did those really long writeups</span>
+
+                </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="699837633009811487" id="message-699837633009811487">
+                <div class="chatlog__content">
+                    <span class="markdown">they were interesting to read</span>
+
+                </div>
+
+
+
+            </div>
+    </div>
+</div><div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/424755010694545408/ada1deef7d9f9a770d17bebbafa01fa8.png" alt="Avatar" />
+    </div>
+    <div class="chatlog__messages">
+    <span class="chatlog__author-name" title="Hibiki#2549" data-user-id="424755010694545408" style="color: #01ADB9">Hibiki Oats</span>
+
+
+        <span class="chatlog__timestamp">15-Apr-20 12:24 AM</span>
+
+            <div class="chatlog__message " data-message-id="699837634062844017" id="message-699837634062844017">
+                <div class="chatlog__content">
+                    <span class="markdown">Silence made some fun announcements</span>
+
+                </div>
+
+
+
+            </div>
+    </div>
+</div><div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/118729469857890304/62e0b27e51533b5a1008e9840350d23d.png" alt="Avatar" />
+    </div>
+    <div class="chatlog__messages">
+    <span class="chatlog__author-name" title="Katsu#2075" data-user-id="118729469857890304" style="color: #9B59B6">団長様</span>
+
+
+        <span class="chatlog__timestamp">15-Apr-20 12:25 AM</span>
+
+            <div class="chatlog__message " data-message-id="699837681122803782" id="message-699837681122803782">
+                <div class="chatlog__content">
+                    <span class="markdown">Oh yeah, that&#39;s true. Those were fun.</span>
+
+                </div>
+
+
+
+            </div>
+    </div>
+</div><div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/424755010694545408/ada1deef7d9f9a770d17bebbafa01fa8.png" alt="Avatar" />
+    </div>
+    <div class="chatlog__messages">
+    <span class="chatlog__author-name" title="Hibiki#2549" data-user-id="424755010694545408" style="color: #01ADB9">Hibiki Oats</span>
+
+
+        <span class="chatlog__timestamp">15-Apr-20 12:25 AM</span>
+
+            <div class="chatlog__message " data-message-id="699837690429833286" id="message-699837690429833286">
+                <div class="chatlog__content">
+                    <span class="markdown">good write ups on data</span>
+
+                </div>
+
+
+
+            </div>
+    </div>
+</div><div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/118729469857890304/62e0b27e51533b5a1008e9840350d23d.png" alt="Avatar" />
+    </div>
+    <div class="chatlog__messages">
+    <span class="chatlog__author-name" title="Katsu#2075" data-user-id="118729469857890304" style="color: #9B59B6">団長様</span>
+
+
+        <span class="chatlog__timestamp">15-Apr-20 12:25 AM</span>
+
+            <div class="chatlog__message " data-message-id="699837705374400582" id="message-699837705374400582">
+                <div class="chatlog__content">
+                    <span class="markdown">feelsbadman that I forgot those</span>
+
+                </div>
+
+
+
+            </div>
+    </div>
+</div><div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/424755010694545408/ada1deef7d9f9a770d17bebbafa01fa8.png" alt="Avatar" />
+    </div>
+    <div class="chatlog__messages">
+    <span class="chatlog__author-name" title="Hibiki#2549" data-user-id="424755010694545408" style="color: #01ADB9">Hibiki Oats</span>
+
+
+        <span class="chatlog__timestamp">15-Apr-20 12:25 AM</span>
+
+            <div class="chatlog__message " data-message-id="699837739281154128" id="message-699837739281154128">
+                <div class="chatlog__content">
+                    <span class="markdown">2 years is long time</span>
+
+                </div>
+
+
+
+            </div>
+    </div>
+</div><div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/118729469857890304/62e0b27e51533b5a1008e9840350d23d.png" alt="Avatar" />
+    </div>
+    <div class="chatlog__messages">
+    <span class="chatlog__author-name" title="Katsu#2075" data-user-id="118729469857890304" style="color: #9B59B6">団長様</span>
+
+
+        <span class="chatlog__timestamp">15-Apr-20 12:42 AM</span>
+
+            <div class="chatlog__message " data-message-id="699842160228433970" id="message-699842160228433970">
+                <div class="chatlog__content">
+                    <span class="markdown">true enough</span>
+
+                </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="699842215287062558" id="message-699842215287062558">
+                <div class="chatlog__content">
+                    <span class="markdown">I&#39;m saving Leo for last so next is M-san. to be totally honest, there&#39;s not much to say about him but he was a random JP guy. I think he was only person to either rival Rasp in total character power or have more? I can&#39;t recall exactly. I can&#39;t even remember if he used discord or if we just talked in-game but he was in the clan for a decent amount of time (for a JP random) aka at least a few months. I give him M/10 for being the OG JP guy.</span>
+
+                </div>
+
+
+
+            </div>
+    </div>
+</div><div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/179767714653536256/be8c4cfa7c779be4f18210b25c2d3868.png" alt="Avatar" />
+    </div>
+    <div class="chatlog__messages">
+    <span class="chatlog__author-name" title="Shino#4874" data-user-id="179767714653536256" style="color: #2ECC71">Shino</span>
+
+
+        <span class="chatlog__timestamp">15-Apr-20 12:45 AM</span>
+
+            <div class="chatlog__message " data-message-id="699842808495865956" id="message-699842808495865956">
+                <div class="chatlog__content">
+                    <span class="markdown">i dont recall Msan talking at all</span>
+
+                </div>
+
+
+
+            </div>
+    </div>
+</div><div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/118729469857890304/62e0b27e51533b5a1008e9840350d23d.png" alt="Avatar" />
+    </div>
+    <div class="chatlog__messages">
+    <span class="chatlog__author-name" title="Katsu#2075" data-user-id="118729469857890304" style="color: #9B59B6">団長様</span>
+
+
+        <span class="chatlog__timestamp">15-Apr-20 01:01 AM</span>
+
+            <div class="chatlog__message " data-message-id="699846785664942080" id="message-699846785664942080">
+                <div class="chatlog__content">
+                    <span class="markdown">And as for Leo... A tough one. 7/10? He might&#39;ve had a lot of issues with me/Clover but tbh I didn&#39;t really have any issues with him. He would leave his attacks til the end of the day most of the time and while he wasn&#39;t Saiki-level flexible, he wasn&#39;t Kasumi-level unprepared either so it wasn&#39;t a bad thing. As for<em>why</em> he left his attacks until then and then complained about losing sleep... The world may never know. He ended up being the brunt of some jokes (like that time I created that &quot;main lobby but without leo&quot; channel... that one went over a lot better in my head than it did IRL) and he was picked on by Knyaz a lot... To be frank even though here it&#39;ll seem like I&#39;m talking behind is back, he was A.) the most outgoing/talkative in main lobby and B.) imo he was pretty sensitive. It made for a sorta volatile combination... I recall having to talk with him in DMs various times over the past two years and convince him to stay in the clan - not because he wasn&#39;t enjoying it like at the end but because he messed up attacks IIRC and he felt bad and like he wasn&#39;t pulling his weight so he&#39;d tell me he wanted to leave. I had to tell him he was still doing perfectly fine and pulling his weight, etc. So he clearly took CB pretty seriously... tbh I&#39;ll always regret the way he left. I should&#39;a said something sooner after Troupe put out that message. feelsbadman after being here for two years. but such is life. at least he got over it a little bit and started talking to melvi again.</span>
+
+                </div>
+            </div>
+    </div>
+</div>
+</div>
+
+<div class="postamble">
+    <div class="postamble__entry">Exported the second month</div>
+</div>
+
+</body>
+</html>
